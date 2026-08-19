@@ -12,7 +12,6 @@ class TaskLoaded extends TaskState {
   TaskLoaded(this.tasks);
 }
 
-class TaskSuccess extends TaskState {}
 
 class TaskError extends TaskState {
   final String message;

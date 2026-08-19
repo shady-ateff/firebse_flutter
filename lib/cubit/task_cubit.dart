@@ -13,7 +13,7 @@ class TaskCubit extends Cubit<TaskState> {
       emit(TaskLoading());
 
       final tasks = await firebaseService.getTasks();
-print(tasks);
+      print(tasks);
       emit(TaskLoaded(tasks));
     } catch (e) {
       emit(TaskError(e.toString()));
@@ -27,7 +27,8 @@ print(tasks);
 
       await firebaseService.addTask(data);
 
-      emit(TaskSuccess());
+      final tasks = await firebaseService.getTasks();
+      emit(TaskLoaded(tasks));
     } catch (e) {
       emit(TaskError(e.toString()));
     }
@@ -40,7 +41,8 @@ print(tasks);
 
       await firebaseService.updateTask(taskId, data);
 
-      emit(TaskSuccess());
+      final tasks = await firebaseService.getTasks();
+      emit(TaskLoaded(tasks));
     } catch (e) {
       emit(TaskError(e.toString()));
     }
@@ -52,8 +54,9 @@ print(tasks);
       emit(TaskLoading());
 
       await firebaseService.deleteTask(taskId);
-
-      emit(TaskSuccess());
+      
+      final tasks = await firebaseService.getTasks();
+      emit(TaskLoaded(tasks));
     } catch (e) {
       emit(TaskError(e.toString()));
     }
